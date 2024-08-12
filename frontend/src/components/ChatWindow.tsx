@@ -70,7 +70,7 @@ export default function ChatWindow() {
             <ListItem
               key={index}
               sx={{
-                "justify-content": message.sender === "user" ? "end" : "start",
+                justifyContent: message.sender === "user" ? "end" : "start",
               }}
             >
               <ListItemText
