@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   TextField,
@@ -25,6 +25,14 @@ const messagesDump: Message[] = [
 export default function ChatWindow() {
   const [messages, setMessages] = useState<Message[]>(messagesDump);
   const [inputValue, setInputValue] = useState("");
+
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   const handleSendMessage = () => {
     if (inputValue.trim()) {
@@ -65,7 +73,7 @@ export default function ChatWindow() {
         </Typography>
       </Header>
       <Box className="flex-grow overflow-y-auto mb-4">
-        <List className="h-full flex flex-col justify-end">
+        <List>
           {messages.map((message, index) => (
             <ListItem
               key={index}
@@ -81,6 +89,7 @@ export default function ChatWindow() {
               />
             </ListItem>
           ))}
+          <div ref={messagesEndRef} />
         </List>
       </Box>
       <Box className="flex items-center">
