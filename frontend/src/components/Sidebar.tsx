@@ -1,13 +1,19 @@
 import { useState } from "react";
-import { Drawer, Box, Tabs, Tab, Divider } from "@mui/material";
+import { Drawer, Tabs, Tab } from "@mui/material";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+
+import Header from "./Header";
+import { DRAWER_WIDTH } from "../utils/constants";
 // import CourseTree from './CourseTree';
 // import HelpInfo from './HelpInfo';
 
-interface SidebarProps {
-  drawerWidth: number;
-}
-
-const Sidebar = ({ drawerWidth }: SidebarProps) => {
+const Sidebar = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -16,14 +22,19 @@ const Sidebar = ({ drawerWidth }: SidebarProps) => {
 
   return (
     <Drawer
-      variant="permanent"
       sx={{
-        width: drawerWidth,
+        width: DRAWER_WIDTH,
         flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
+        "& .MuiDrawer-paper": {
+          width: DRAWER_WIDTH,
+          boxSizing: "border-box",
+        },
       }}
+      variant="persistent"
+      anchor="left"
+      open={true}
     >
-      <Box sx={{ overflow: "auto" }}>
+      <Header>
         <Tabs
           value={tabIndex}
           onChange={handleTabChange}
@@ -34,10 +45,36 @@ const Sidebar = ({ drawerWidth }: SidebarProps) => {
           <Tab label="Course Tree" />
           <Tab label="Help Info" />
         </Tabs>
-        <Divider />
-        {tabIndex === 0 ? "CourseTree" : "HelpInfo"}
-        {/* {tabIndex === 0 ? <CourseTree /> : <HelpInfo />} */}
-      </Box>
+      </Header>
+      {tabIndex === 0 ? (
+        <List>
+          {["CourseTree", "Starred", "Send email", "Drafts"].map(
+            (text, index) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            )
+          )}
+        </List>
+      ) : (
+        <List>
+          {["HelpInfo", "Trash", "Spam"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      )}
     </Drawer>
   );
 };

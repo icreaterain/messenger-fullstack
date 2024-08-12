@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Box,
-  Paper,
   TextField,
   IconButton,
   List,
@@ -9,7 +8,8 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import Icon from "@mui/material/Icon";
+import SendIcon from "@mui/icons-material/Send";
+import Header from "./Header";
 
 interface Message {
   id: string;
@@ -58,49 +58,48 @@ export default function ChatWindow() {
   };
 
   return (
-    <Box
-      component={Paper}
-      elevation={3}
-      className="flex flex-col h-full"
-      sx={{ p: 2 }}
-    >
-      <Typography variant="h6" className="mb-4">
-        Chat Window
-      </Typography>
-      <Box className="flex-grow overflow-y-auto mb-4">
-        <List>
-          {messages.map((message, index) => (
-            <ListItem
-              key={index}
-              className={`flex ${
-                message.sender === "user" ? "justify-end" : "justify-start"
-              }`}
-            >
-              <ListItemText
-                primary={message.content}
-                className={`px-4 py-2 rounded-lg max-w-xs ${
-                  message.sender === "user"
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-300"
+    <Box component="main" className="flex-1">
+      <Header>
+        <Typography variant="h6" className="mb-4">
+          Chat Window
+        </Typography>
+      </Header>
+      <Box className="flex flex-col h-full">
+        <Box className="flex-grow overflow-y-auto mb-4 h-full">
+          <List>
+            {messages.map((message, index) => (
+              <ListItem
+                key={index}
+                className={`flex ${
+                  message.sender === "user" ? "justify-end" : "justify-start"
                 }`}
-              />
-            </ListItem>
-          ))}
-        </List>
-      </Box>
-      <Box className="flex">
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder="Type a message..."
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-          className="flex-grow mr-2"
-        />
-        <IconButton color="primary" onClick={handleSendMessage}>
-          <Icon>send</Icon>
-        </IconButton>
+              >
+                <ListItemText
+                  primary={message.content}
+                  className={`px-4 py-2 rounded-lg max-w-xs ${
+                    message.sender === "user"
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-300"
+                  }`}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+        <Box className="flex fixed bottom-0">
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="Type a message..."
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+            className="flex-grow mr-2 w-full"
+          />
+          <IconButton color="primary" onClick={handleSendMessage}>
+            <SendIcon />
+          </IconButton>
+        </Box>
       </Box>
     </Box>
   );
