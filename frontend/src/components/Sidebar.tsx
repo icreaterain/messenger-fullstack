@@ -1,5 +1,5 @@
-import { PropsWithChildren, useState } from "react";
-import { Drawer, Box, Tabs, Tab, Divider, Toolbar } from "@mui/material";
+import { useState } from "react";
+import { Drawer, Box, Tabs, Tab, Divider } from "@mui/material";
 // import CourseTree from './CourseTree';
 // import HelpInfo from './HelpInfo';
 
@@ -7,7 +7,7 @@ interface SidebarProps {
   drawerWidth: number;
 }
 
-const Sidebar = ({ drawerWidth }: PropsWithChildren<SidebarProps>) => {
+const Sidebar = ({ drawerWidth }: SidebarProps) => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -23,7 +23,6 @@ const Sidebar = ({ drawerWidth }: PropsWithChildren<SidebarProps>) => {
         [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
       }}
     >
-      <Toolbar />
       <Box sx={{ overflow: "auto" }}>
         <Tabs
           value={tabIndex}
@@ -36,7 +35,7 @@ const Sidebar = ({ drawerWidth }: PropsWithChildren<SidebarProps>) => {
           <Tab label="Help Info" />
         </Tabs>
         <Divider />
-        CourseTree
+        {tabIndex === 0 ? "CourseTree" : "HelpInfo"}
         {/* {tabIndex === 0 ? <CourseTree /> : <HelpInfo />} */}
       </Box>
     </Drawer>
