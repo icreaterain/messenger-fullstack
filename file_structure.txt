@@ -1,0 +1,68 @@
+/frontend
+│
+├── /public
+│   ├── index.html
+│   └── favicon.ico
+│
+├── /src
+│   ├── /components
+│   │   ├── App.tsx                        // Main application component
+│   │   ├── Sidebar.tsx                    // Sidebar component with tabs for course tree and helping information
+│   │   ├── ChatWindow.tsx                 // Main chat interface component
+│   │   ├── CourseTree.tsx                 // Component to display the course tree
+│   │   ├── HelpInfo.tsx                   // Component to display helping information
+│   │   ├── Tabs.tsx                       // Tab component for Sidebar
+│   │   ├── /exercises                     // Directory for exercise components
+│   │   │   ├── ExerciseA.tsx              // Example exercise component A
+│   │   │   ├── ExerciseB.tsx              // Example exercise component B
+│   │   │   ├── ExerciseC.tsx              // Example exercise component C
+│   │   │   ├── [other exercises].tsx      // Additional exercise components
+│   │   ├── ExerciseRenderer.tsx           // Component responsible for rendering exercises in chat
+│   │   └── [other components].tsx         // Additional components as needed
+│   │
+│   ├── /graphql
+│   │   ├── localStateQueries.ts           // Local state GraphQL queries
+│   │   ├── remoteDataQueries.ts           // Remote GraphQL queries for fetching exercises, etc.
+│   │   └── [other queries].ts
+│   │
+│   ├── /state
+│   │   ├── chatState.ts                   // Chat-specific state management
+│   │   ├── userState.ts                   // User-specific state management
+│   │   ├── courseTreeState.ts             // State management for the course tree
+│   │   ├── exerciseState.ts               // State management for exercises
+│   │   └── [other state management files].ts
+│   │
+│   ├── /types
+│   │   ├── global.d.ts                    // Global TypeScript types
+│   │   ├── apollo.d.ts                    // Type definitions for Apollo-related elements
+│   │   ├── exercises.d.ts                 // Type definitions for exercise components and data
+│   │   └── [other types].d.ts
+│   │
+│   ├── /utils
+│   │   ├── apolloClient.ts                // Apollo Client setup and cache configuration
+│   │   ├── fetchExercises.ts              // Utility for fetching exercises from the backend
+│   │   ├── formatCourseTree.ts            // Utility for formatting course tree data
+│   │   └── [other utility files].ts
+│   │
+│   ├── /assets
+│   │   ├── /images                        // Static image assets
+│   │   ├── /styles                        // Global and component-specific styles
+│   │   │   ├── App.css
+│   │   │   ├── Sidebar.css
+│   │   │   ├── ChatWindow.css
+│   │   │   └── [other styles].css
+│   │   └── /fonts                         // Custom fonts if any
+│   │
+│   ├── apolloClient.ts                    // Apollo Client setup and cache configuration
+│   ├── index.tsx                          // Entry point of the application
+│   ├── App.css                            // Global styles
+│   ├── App.test.tsx                       // Tests for App component
+│   ├── serviceWorker.ts                   // Service worker for PWA
+│   ├── setupTests.ts                      // Setup for testing framework
+│   └── [other utility files].ts
+│
+├── .gitignore
+├── package.json
+├── tsconfig.json                          // TypeScript configuration
+├── README.md
+└── [other configuration files]
