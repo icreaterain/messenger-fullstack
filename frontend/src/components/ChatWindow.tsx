@@ -17,7 +17,7 @@ interface Message {
   content: string;
 }
 
-const messagesDump = [
+const messagesDump: Message[] = [
   { id: "2", sender: "user", content: "Hi!" },
   { id: "1", sender: "bot", content: "Hi! How can I help you?" },
 ];
@@ -29,7 +29,7 @@ export default function ChatWindow() {
   const handleSendMessage = () => {
     if (inputValue.trim()) {
       const newMessage: Message = {
-        id: "3",
+        id: Date.now().toString(),
         sender: "user",
         content: inputValue,
       };
@@ -38,7 +38,7 @@ export default function ChatWindow() {
       // Simulate bot response
       setTimeout(() => {
         const botMessage: Message = {
-          id: "4",
+          id: Date.now().toString(),
           sender: "bot",
           content: "This is a bot response.",
         };
@@ -58,48 +58,44 @@ export default function ChatWindow() {
   };
 
   return (
-    <Box component="main" className="flex-1">
+    <Box component="main" className="flex flex-col h-full w-full relative p-4">
       <Header>
         <Typography variant="h6" className="mb-4">
           Chat Window
         </Typography>
       </Header>
-      <Box className="flex flex-col h-full">
-        <Box className="flex-grow overflow-y-auto mb-4 h-full">
-          <List>
-            {messages.map((message, index) => (
-              <ListItem
-                key={index}
-                className={`flex ${
-                  message.sender === "user" ? "justify-end" : "justify-start"
+      <Box className="flex-grow overflow-y-auto mb-4">
+        <List className="h-full flex flex-col justify-end">
+          {messages.map((message, index) => (
+            <ListItem
+              key={index}
+              sx={{
+                "justify-content": message.sender === "user" ? "end" : "start",
+              }}
+            >
+              <ListItemText
+                primary={message.content}
+                className={`px-4 py-2 rounded-lg max-w-xs ${
+                  message.sender === "user" && "bg-gray-100"
                 }`}
-              >
-                <ListItemText
-                  primary={message.content}
-                  className={`px-4 py-2 rounded-lg max-w-xs ${
-                    message.sender === "user"
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-300"
-                  }`}
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-        <Box className="flex fixed bottom-0">
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Type a message..."
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyPress={handleKeyPress}
-            className="flex-grow mr-2 w-full"
-          />
-          <IconButton color="primary" onClick={handleSendMessage}>
-            <SendIcon />
-          </IconButton>
-        </Box>
+              />
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+      <Box className="flex items-center">
+        <TextField
+          fullWidth
+          variant="outlined"
+          placeholder="Type a message..."
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
+          className="flex-grow mr-2"
+        />
+        <IconButton color="primary" onClick={handleSendMessage}>
+          <SendIcon />
+        </IconButton>
       </Box>
     </Box>
   );
